@@ -1,4 +1,4 @@
-* Ammo counter Experiment
+** Ammo counter Experiment
 This code is to make a nerf ammo counter using the following:
  - Arduino Nano
  - 74HC595 2 Led digits
