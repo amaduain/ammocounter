@@ -79,7 +79,6 @@ void loop() {
         Serial.println("Trigger deactivated.");
       #endif
       triggerRelayOn = false;
-      delay(100);
     }
   }
   //End of Trigger Code
