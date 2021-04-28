@@ -3,9 +3,11 @@
 
 //Variables
 int wheelRelay = 2;
-int wheelRelaySignalOut = 3;
+int triggerRelay=3;
 int wheelRelaySignalIn = 4;
+int triggerRelaySignalIn = 5;
 int wheelRelayOn = false;
+int triggerRelayOn = false;
 //
 //Setup ammo counter.
 void setup() {
@@ -14,15 +16,18 @@ void setup() {
     Serial.print("Initializing...\n");
   #endif
   pinMode(wheelRelay, OUTPUT);
+  pinMode(triggerRelay, OUTPUT);
   pinMode(wheelRelaySignalIn, INPUT_PULLUP);
-  pinMode(wheelRelaySignalOut, OUTPUT);
-  digitalWrite(wheelRelaySignalOut, HIGH);
+  pinMode(triggerRelaySignalIn, INPUT_PULLUP);
   digitalWrite(wheelRelay, LOW);
+  digitalWrite(triggerRelay, LOW);
   digitalWrite(wheelRelaySignalIn, LOW);
+  digitalWrite(triggerRelaySignalIn, LOW);
 }
 
 void loop() {
   //delay(2000);
+  //FlyWheel code
   if(digitalRead(wheelRelaySignalIn) == HIGH){
     #ifdef DEBUG
       Serial.println("Wheel Switch activated.");
@@ -49,5 +54,33 @@ void loop() {
       delay(100);
     }
   }
-  
+  //End of Flywheel code
+  //Trigger code
+  if(digitalRead(triggerRelaySignalIn) == HIGH){
+    #ifdef DEBUG
+      Serial.println("Trigger Switch activated.");
+    #endif
+    if (triggerRelayOn == false){
+      #ifdef DEBUG
+        Serial.println("Trigger Relay activated.");
+      #endif
+      digitalWrite(triggerRelay, HIGH);
+      triggerRelayOn = true;
+      delay(100);
+      digitalWrite(triggerRelay, LOW);
+    }
+  }
+  else{
+    #ifdef DEBUG
+      Serial.println("Trigger Switch Deactivated");
+    #endif
+    if(triggerRelayOn == true){
+       #ifdef DEBUG
+        Serial.println("Trigger deactivated.");
+      #endif
+      triggerRelayOn = false;
+      delay(100);
+    }
+  }
+  //End of Trigger Code
 }
