@@ -21,14 +21,12 @@ void setup() {
   pinMode(triggerRelaySignalIn, INPUT_PULLUP);
   digitalWrite(wheelRelay, LOW);
   digitalWrite(triggerRelay, LOW);
-  digitalWrite(wheelRelaySignalIn, LOW);
-  digitalWrite(triggerRelaySignalIn, LOW);
 }
 
 void loop() {
   //delay(2000);
   //FlyWheel code
-  if(digitalRead(wheelRelaySignalIn) == HIGH){
+  if(digitalRead(wheelRelaySignalIn) == LOW){
     #ifdef DEBUG
       Serial.println("Wheel Switch activated.");
     #endif
@@ -56,7 +54,7 @@ void loop() {
   }
   //End of Flywheel code
   //Trigger code
-  if(digitalRead(triggerRelaySignalIn) == HIGH){
+  if(digitalRead(triggerRelaySignalIn) == LOW){
     #ifdef DEBUG
       Serial.println("Trigger Switch activated.");
     #endif

@@ -38,3 +38,6 @@ Zeus Motors: SRC-360S-3160
 
 https://imgur.com/a/subfrxy
 https://www.reddit.com/r/Nerf/comments/9y4v3c/super_zeus_arduino_controlled_solenoid_trigger/
+http://nerfhaven.com/forums/topic/26606-nerf-rival-zeus-cronos-mod-semi-auto-reboud-burst-and-fu/
+
+
