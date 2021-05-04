@@ -74,7 +74,7 @@ void loop() {
         delay(100); 
       }
       if (ammo == 0){  //Ammo depleted, restart the counted and give some time for reload.
-        showLetterH();
+        showOutAmmo();
         ammo = selected_ammo;
       }
     }
@@ -107,14 +107,15 @@ void showNumber(int num)
     uint8_t numberToPrint[]= {digits[digit2],digits[digit1]};
     sr.setAll(numberToPrint);  
 }
-void showLetterH()
+void showOutAmmo()
 {
-  int times = 10;
-  uint8_t numberToPrint[]= {digits[12],digits[13]};
-  for(int i=0;i<times;i++){
-    sr.setAll(numberToPrint);  
-    delay(250); 
-    sr.setAllHigh();  
-    delay(250);
-  } 
+    uint8_t numberToPrint2[]= {B10100011,B10101011};
+    for(int i=0;i<10;i++){
+      sr.setAll(numberToPrint2);
+      delay(250);  
+      showNumber(00);
+      delay(250);  
+    }
+    
+    
 }
