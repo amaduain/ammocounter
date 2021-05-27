@@ -15,7 +15,6 @@ int ammo = 40;
 int old_ammo = 40;
 int selected_ammo = 40;
 int irValue = 0;
-int brightness = 7;
 int sensorThreshold = 200;
 bool disabledSensor = false;
 int value,digit1,digit2,digit3,digit4; 
@@ -28,7 +27,11 @@ uint8_t  digits[] = {B11000000, //0
                       B10000010, //6 
                       B11111000, //7
                       B10000000, //8
-                      B10010000 //9
+                      B10010000, //9
+                      B10001001, //H
+                      B10000110, //E
+                      B10101011, //n
+                      B10100011 //o
                      };
 
 //Objects
@@ -56,6 +59,7 @@ void setup() {
 
 void loop() {
   //Check if the ammo has changed.
+  showNumber(ammo);
   if (old_ammo != ammo){
     #ifdef DEBUG
       Serial.print("Ammo Counter is ");
@@ -63,7 +67,7 @@ void loop() {
       Serial.print("\n");
     #endif
     old_ammo = ammo;
-    showNumber(ammo);
+    
   }
   //Check if button has been pressed.
   buttonState = digitalRead(buttonPin);
@@ -109,10 +113,12 @@ void loop() {
       if (irValue < sensorThreshold){ // if it is below the threshold means the ball has passed.
         if (ammo > 0){  //Check the ammo counter.
           ammo = ammo - 1; 
+          showNumber(ammo);
           delay(100); 
         }
         if (ammo == 0){  //Ammo depleted, restart the counted and give some time for reload.
-          blinkNumber(ammo);
+          //blinkNumber(ammo);
+          showOutAmmo();
           ammo = selected_ammo;
         }
       }
@@ -161,4 +167,14 @@ void showNumber(int num)
     //Send them to 7 segment displays
     uint8_t numberToPrint[]= {digits[digit2],digits[digit1]};
     sr.setAll(numberToPrint);  
+}
+void showOutAmmo()
+{
+    uint8_t numberToPrint2[]= {B10100011,B10101011};
+    for(int i=0;i<10;i++){
+      sr.setAll(numberToPrint2);
+      delay(250);  
+      showNumber(00);
+      delay(250);  
+    }
 }
